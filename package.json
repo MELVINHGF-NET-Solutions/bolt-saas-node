@@ -1,0 +1,16 @@
+{
+  "name": "@paywithbolt/saas_payments",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./saas_payments.js",
+    "test": "qunit -c saas_payments.js -t test/saas_payments.js"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "lodash": "^4.17.11",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {},
+  "description": "SaaS Payments SDK"
+}
