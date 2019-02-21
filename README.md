@@ -1,4 +1,4 @@
-# SaaSPayments
+# SaaS Payments node.js SDK
 
 SaaSPayments is the easiest way to integrate payment processing into your software. Bolt NOT a payment processor but rather connects to  major processors in each territory. 
 
@@ -22,7 +22,7 @@ This library is designed to simplify your integration with Bolt for platforms wr
 Adding a payments setup button to your software that launches a popup or redirect is easy, you simply need to include our JS library, and then add a "Setup Payments" link or button to your page. The button requires two HTML attributes `data-bolt-setup` and `data-bolt-signature` as such:
 
 ```
-	<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string>">Setup Payments</button>
+<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string>">Setup Payments</button>
 ```   
 
 Where the encoded strings are generated server side via our library;
@@ -31,9 +31,9 @@ Where the encoded strings are generated server side via our library;
 var SaaSPayments = require ("@paywithbolt/saas_payments");
 
 var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
+	shared_key: "your shared key",
+	secret_key: "your secret key"
+});
 
 var options = {
 	instance_key: "client_key",
@@ -49,12 +49,12 @@ var signature_encoded_string = payments.setupSignature(options);
 
 var html_button = '<button data-bolt-setup="' + setup_encoded_string + '" data-bolt-signature="' + signature_encoded_string + '>">Setup Payments</button>'
 
-// OR you can alternatively create a setup URL to redirect the user to
+// OR you can create a setup URL to redirect the user to
 
 var setup_url = payments.setupUrl(options);
 ```
 
-Where options:
+Where `options`:
 
 | Field | Description |
 |---|---|
@@ -69,15 +69,15 @@ First time users will be required to supply all the above fields during account 
 
 ### Serverside Payment Readiness
 
-You can check // TODO: API to determine the setup of an instance, and specifically the payments support the instance has 
+You can check if an instance has been activated and configured for payments, by calling `getSetup`. 
 
 ```
 var SaaSPayments = require ("@paywithbolt/saas_payments");
 
 var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
+	shared_key: "your shared key",
+	secret_key: "your secret key"
+});
 
 var options = {
 	instance_key: "client_key"
@@ -110,7 +110,7 @@ Result:
 			account_name: "Pay with Bolt",
 			card_types: ["VISA", "MASTERCARD", "AMEX"],
 			currencies: ["USD", "GBP"],
-			features: ["AUTHORISE", "MULTI_CAPTURE", "SAVE_CARD"] // Filter for: "AUTHORISE", "MULTI_CAPTURE", "SAVE_CARD" (if specific CREATE_TOKEN feature)
+			features: ["AUTHORISE", "MULTI_CAPTURE", "SAVE_CARD"] 
 		},{
 			id: "1234_5679",
 			code: "G005679",
@@ -141,9 +141,9 @@ Where the encoded strings are generated serverside via our library, for example:
 var SaaSPayments = require ("@paywithbolt/saas_payments");
 
 var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
+	shared_key: "your shared key",
+	secret_key: "your secret key"
+});
 
 var options = {
     instance_key: "1000",
@@ -176,14 +176,12 @@ var options = {
 var payment_encoded_string = payments.paymentButton(options);
 var signature_encoded_string = payments.paymentSignature(options);
 
-// OR you can alternatively create a payment URL to redirect the user to
+// OR you can create a payment URL to redirect the user to
 
 var payment_url = payments.paymentUrl(options);
 ```
 
->>> IRENE -> PLEASE MAP THESE FIELDS ACCORDINGLY AND ALSO SET THE PAYMENT TO BE ONE OFF WITH NO CUSTOMER PORTAL / LOGOUT
-
-Where options:
+Where `options`:
 
 | Field | Description |
 |---|---|
@@ -305,7 +303,7 @@ Result:
 }
 ```
 
-Where options:
+Where `options`:
 
 | Field | Description |
 |---|---|
@@ -373,8 +371,8 @@ var payments = new SaaSPayments({
 var options = {
 	instance_key: "client_key",
 	payment: "pay_1234_5678",
-	amount: "100", // Optional - default to original transaction amount 
-	reason: "Optional description why"
+	amount: "100", 
+	reason: "Customer requested refund"
 };
 
 var payment_promise = payments.doRefund(options).then((result) => {
@@ -388,15 +386,15 @@ var payment_promise = payments.doRefund(options).then((result) => {
 Result: 
 {
     "refund": {
-        "id": "ref_1000_31792",
-        "payment": "pay_1000_1234",
-        "amount": "100",
-        "reason": "Optional description why"
-        "status": "SUCCESS",
-        "gateway_status": "APPROVED",
-        "reference": "BOLT-00031792",
-        "created": "2019-01-23T10:24:31.000Z",
-        "processed": "2019-01-23T10:24:31.000Z"
+		"id": "ref_1000_31792",
+		"payment": "pay_1000_1234",
+		"amount": "100",
+		"reason": "Optional description why"
+		"status": "SUCCESS",
+		"gateway_status": "APPROVED",
+		"reference": "BOLT-00031792",
+		"created": "2019-01-23T10:24:31.000Z",
+		"processed": "2019-01-23T10:24:31.000Z"
 	}
 }
 ```
@@ -419,22 +417,23 @@ Webhooks are sent to your server for various events, such as payments and refund
 var SaaSPayments = require ("@paywithbolt/saas_payments");
 
 var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
+	shared_key: "your shared key",
+	secret_key: "your secret key"
+});
 
 var app = express().listen();
 
 app.post("/webhook", (req, res) => {
-	var payment_promise = payments.getWebhook(req.body).then((result) => {
-			// On Success
-			console.log("Result: " + JSON.stringify(result));
-		}).catch((err) => {
-			// On Error 
-			console.log("Result: " + JSON.stringify(result));
-		});
+	var promise = payments.getWebhook(req.body).then((result) => {
+		// On Success
+		console.log("Result: " + JSON.stringify(result));
+	}).catch((err) => {
+		// On Error 
+		console.log("Result: " + JSON.stringify(result));
+	});
 });
 
+...
 
 Result: 
 { 
@@ -448,7 +447,7 @@ Result:
         "alt_key": "1234",
         "description": "About the payment",
         "source": "moto",
-        "action": "PAYMENT", // PAYMENT / AUTHORISE
+        "action": "PAYMENT", 
         "status": "SUCCESS",
         "gateway_status": "APPROVED",
         "reference": "BOLT-00031792",
@@ -468,190 +467,12 @@ Result:
 }
 ```
 
+Where:
 
+* Action `PAYMENT.*`, the `payment` node will be expanded into a object
+* Action `REFUND.*`, the `refund` node will be expanded into a object
 
+## Coming soon
 
-
-
-
-
-
-
-
-
-
-
-
-
-
---- Out OF SCOPE ----
-Add action to "doPaymnent"
-
-### Serverside Capture
-
-You can capture part of all of an authorised payment, via `promise = payments.doCapture(options)`. While all gaterways allow capturing an amount less than or equal to the original authorised amount, only some gateways allow you to capture multiple times (for example as parts of an order ship), see the gateway's "features". for example:  
-
-```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
-
-var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
-
-var options = {
-	instance_key: "client_key",
-	payment: "pay_1234_5678",
-	amount: "100"
-};
-
-var payment_promise = payments.doCapture(options)
-	.then((result) => {
-		// On Success
-		console.log("Result: " + JSON.stringify(result));
-	}).catch((err) => {
-		// On Error 
-		console.log("Result: " + JSON.stringify(result));
-	});
-
-...
-
-Result: 
-{
-    "capture": {
-        "id": "cap_1000_31792",
-        "payment": "pay_1000_1234",
-        "amount": "100",
-        "status": "SUCCESS",
-        "gateway_status": "APPROVED",
-        "reference": "BOLT-00031792",
-        "created": "2019-01-23T10:24:31.000Z",
-        "processed": "2019-01-23T10:24:31.000Z"
-	}
-}
-```
-
-Where options:
-
-| Field | Description |
-|---|---|
-| instance_key | (required) A unique key to identify the merchant, this can be any string. |
-| ... | to be completed |
-
-
-### Serverside Void
-
-You can void the remainder of an authoisation, via `promise = payments.doVoid(options)`, for example:  
-
-```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
-
-var payments = new SaaSPayments({
-		shared_key: "your shared key",
-		secret_key: "your secret key"
-	});
-
-var options = {
-	instance_key: "client_key",
-	payment: "pay_1234_5678"
-};
-
-var payment_promise = payments.doVoid(options)
-	.then((result) => {
-		// On Success
-		console.log("Result: " + JSON.stringify(result));
-	}).catch((err) => {
-		// On Error 
-		console.log("Result: " + JSON.stringify(result));
-	});
-
-...
-
-Result: 
-{
-    "void": {
-        "id": "voi_1000_31792",
-        "payment": "pay_1000_1234",
-        "amount": "100",
-        "status": "SUCCESS",
-        "gateway_status": "APPROVED",
-        "reference": "BOLT-00031792",
-        "created": "2019-01-23T10:24:31.000Z",
-        "processed": "2019-01-23T10:24:31.000Z"
-	}
-}
-```
-
-Where options:
-
-| Field | Description |
-|---|---|
-| instance_key | (required) A unique key to identify the merchant, this can be any string. |
-| ... | to be completed |
-
-
-
-
-## Recurring Payments
-
-
-### Hosted Recurring Payment 
-	(show popover vs redirect) 
-### Hosted Amend Recurring Payment Method
-	 -->(show popover vs redirect) 
-### Serverside Recurring Payment
-### Serverside Amend Recurring Payment Method
-### Serverside Cancel Recurring Payment
-
-
-
---- TRAINING ----- 1:30 
-1. Problem
-	You've got a great app, that allows you customers to collect payment. However which payment gateways do you integrate into your product and how do you manage compliance? Each processor takes valuable time and can can severly limit your addressable market.
-
-	We're here to enable you to support the gateways your customers are already using and want to keep, open up new markets and take compliance burden off your shoulders, via one simple integration. 
-
-2. Each gateway is unique and how to connect to each is different, OAUTH, API credentials, private certificate exchange, and VPN tunnels. We provide a simple popup you can drop in your app to allow your merchant to connect your app to their preferred processors.
-	- Simply tell our popup your merchant details it is and we'll handhold them through the connection process (show popup, and SDK Code)
-
-[Artwork, payment setup process]
-
-3. You can tell if your merchant is configured via our API (show SDK code0)
-
-[Artwork, API request and response]
-
-4. You can perform payments via our PCI DSS compliant popup (recommended) or via our API (** whitelabelled version only). We'd recommend our popup as we offer some cool stuff like multiple payment options and non card payments, howver the API option is there if you want to collect card details in your app. 
-
-[Artwork, payment popup]
-
-5. Stay up to date with our webhooks, simple add a POST endpoint to your app and configure it in our dev portal. Webhooks will keep you up to date with payment status, refunds and payments that cant be cleared immediately (like direct debit)
-
-[Artwork, webhook code, update order status]
-
-6. We have a simple REST API and now have SDKs in several popular languages, include node.js and PHP 
-
-[Artwork, webhook code]
-
-7. Track whats going on in our dev portal, where you can see all your connected accounts and their activity
-
-[Artwork, devportal]
-
-8. Summary slide
- 	1. Get our SDK or use our REST api
- 	2. Add setup popup
- 	3. Check isSetupPaymentReady API endpoint
- 	4. Add payment popup
- 	5. Catch webhook
- 	You can find more details here: [webpage]
- 	
-
- -- Demo -- 
- 1. Problem
- 	This is a short video to show how to add payments to an Wordpress installation. In this example, we want each author the ability to configure payments on pages they own into their own merchant account.
-
- 2.  Lets first create a page in the admin console for us to allow the user a setup button, this is purely wordpress code and nothing to do with Bolt.
-
- 3. Now we're going to add Bolt's popup JS to the page, and add a button to open a setup dialogue
-
- [Better use case would be a page, that each page can collect money into a different account] 
- 	
+* Auth / Capture
+* Recurring payments
