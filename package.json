@@ -1,16 +1,29 @@
 {
-  "name": "@paywithbolt/saas_payments",
-  "version": "0.0.1",
+  "name": "@paywithbolt/bolt-saas-node",
+  "version": "0.0.2",
   "scripts": {
     "start": "node ./saas_payments.js",
     "test": "qunit -c saas_payments.js -t test/saas_payments.js"
   },
   "dependencies": {
-    "crypto": "^1.0.1",
     "lodash": "^4.17.11",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   },
   "devDependencies": {},
-  "description": "SaaS Payments SDK"
+  "description": "SaaS Payments Node.js SDK",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pay-with-bolt/bolt-saas-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pay-with-bolt/bolt-saas-node/issues"
+  },
+  "homepage": "https://github.com/pay-with-bolt/bolt-saas-node#readme",
+  "main": "saas_payments.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "Pay with Bolt",
+  "license": "ISC"
 }
