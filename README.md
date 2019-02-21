@@ -15,6 +15,14 @@ This library is designed to simplify your integration with Bolt for platforms wr
 * Redirect URLs: If you wish to use a hosted setup & payment process but prefer not to popover your existing platform, you can redirect instead, these pages will be hosted from Bolt's domain.
 * Serverside: These are performed entirely by serverside API and do not have a user interface component. Note: The use of APIs which handle card details require your platform to be PCI DSS compiant, are only available in our white-labelled product. You can still however use the popover and redirect techniques. 
 
+### Installation
+
+You can install via npm:
+
+```
+npm install @paywithbolt/bolt-saas-node
+```
+
 ## Setup / Onboarding
 
 ### Hosted Setup
@@ -28,7 +36,7 @@ Adding a payments setup button to your software that launches a popup or redirec
 Where the encoded strings are generated server side via our library;
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 	shared_key: "your shared key",
@@ -72,7 +80,7 @@ First time users will be required to supply all the above fields during account 
 You can check if an instance has been activated and configured for payments, by calling `getSetup`. 
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 	shared_key: "your shared key",
@@ -138,7 +146,7 @@ Adding a payments popup is also easy, you simply need to include our JS library,
 Where the encoded strings are generated serverside via our library, for example:
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 	shared_key: "your shared key",
@@ -228,7 +236,7 @@ Where `address`:
 You can perform a payment request server side via `promise = payments.doPayment(options)`. A new payment will be attempted,  unless the payment is rejected prior to processing the API request will succeed and return a payment object in a SUCCESS or DECLINE status. If however the payment is rejected due to a validation rule (eg no card data), no payment will be created. For example:
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 		shared_key: "your shared key",
@@ -361,7 +369,7 @@ Where `billing` and `address`:
 You can refund part of all of a payment, via `promise = payments.doRefund(options)`, for example: 
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 		shared_key: "your shared key",
@@ -414,7 +422,7 @@ Where options:
 Webhooks are sent to your server for various events, such as payments and refunds. When you receive a webhook, you can expand it via `promise = payments.getWebhook(webhook_body, options)`, where:
 
 ```
-var SaaSPayments = require ("@paywithbolt/saas_payments");
+var SaaSPayments = require ("@paywithbolt/bolt-saas-node");
 
 var payments = new SaaSPayments({
 	shared_key: "your shared key",
