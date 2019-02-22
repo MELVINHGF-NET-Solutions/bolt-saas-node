@@ -30,7 +30,7 @@ npm install @paywithbolt/bolt-saas-node
 Adding a payments setup button to your software that launches a popup or redirect is easy, you simply need to include our JS library, and then add a "Setup Payments" link or button to your page. The button requires two HTML attributes `data-bolt-setup` and `data-bolt-signature` as such:
 
 ```
-<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string>">Setup Payments</button>
+<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string">Setup Payments</button>
 ```   
 
 Where the encoded strings are generated server side via our library;
@@ -55,7 +55,7 @@ var options = {
 var setup_encoded_string = payments.setupButton(options);
 var signature_encoded_string = payments.setupSignature(options);
 
-var html_button = '<button data-bolt-setup="' + setup_encoded_string + '" data-bolt-signature="' + signature_encoded_string + '>">Setup Payments</button>'
+var html_button = '<button data-bolt-setup="' + setup_encoded_string + '" data-bolt-signature="' + signature_encoded_string + '">Setup Payments</button>'
 
 // OR you can create a setup URL to redirect the user to
 
@@ -140,7 +140,7 @@ Result:
 Adding a payments popup is also easy, you simply need to include our JS library, and then add a "Payment" link or button to your page. The button requires two attributes `data-bolt-payment` and `data-bolt-signature` as such
 
 ```
-<button data-bolt-payment="payment_encoded_string" data-bolt-signature="signature_encoded_string>">Pay</button>
+<button data-bolt-payment="payment_encoded_string" data-bolt-signature="signature_encoded_string">Pay</button>
 ```   
 
 Where the encoded strings are generated serverside via our library, for example:
