@@ -249,9 +249,9 @@ var options = {
 	"currency": "GBP",
 	"amount": 100,
 
-	"alt_key": "1234",
-	"description": "About the payment",
-	"source": "moto",
+    "alt_key": "1234",
+    "description": "About the payment",
+    "source": "moto",
 
 	account: {
         alt_key: "yourCustomerId",
@@ -320,6 +320,7 @@ Where `options`:
 | `amount` | The amount of the payment as a string eg "10", the amount should not have commas and use a `.` as a decimal seperator |
 | `alt_key` | Your unique reference for the payment (eg order id) |
 | `description` | Your descriptive text for the payment |
+| `title` | Text shown at the top of the payment popup |
 | `nonce` | A unique string that will be used by Bolt to ensure the same transactions is not submitted twice. A nonce can only be used once in a 24 hours period.  |
 | `source` | can be any of "moto", "pos", "ecommerce" - default "ecommerce" |
 | `payment_method` | can be an `id` referencing an existing payment_method or a fully formed payment_method object which will be created or amended. If an existing payment_method is to be used with a cvc, pass an object containing an `id` and `card_cvc` |

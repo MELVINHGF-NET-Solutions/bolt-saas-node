@@ -131,6 +131,7 @@ class SaaSPayments {
 			"channelKey": options.channel_key || "web",
 			"frequency": "ONEOFF",
 			"disableMyDetails": "TRUE",
+			"channelTitle": options.title,
 			"nonce": options.nonce || ("bolt_" + new Date().getTime())
 		}, _.omit(options, "account"));
 	}
