@@ -199,6 +199,7 @@ Where `options`:
 | `default_amount` | The default amount of the payment as a string eg "10", the amount should not have commas and use a `.` as a decimal seperator. A default amount is be editable by the user. |
 | `alt_key` | Your unique reference for the payment (eg order id) |
 | `description` | Your descriptive text for the payment |
+| `title` | Text shown at the top of the payment popup |
 | `nonce` | A unique string that will be used by Bolt to ensure the same transactions is not submitted twice. A nonce can only be used once in a 24 hours period.  |
 | `source` | can be any of "moto", "ecommerce" - default "ecommerce" |
 | `account` | can be an `id` referencing an existing account or a fully formed account object which will be created or amended |

@@ -106,6 +106,7 @@ class SaaSPayments {
 			"defaultAmount": options.default_amount,
 			"altKey": options.alt_key,
 			"orderDesc": options.description,
+			"channelTitle": options.title,
 			
 			"accountKey": accountKey,
 			"crm": account ? {
@@ -126,12 +127,11 @@ class SaaSPayments {
 				"phone": account.phone
 			} : undefined,
 
-			"onSuccessEmail": options.success_url,
+			"successUrl": options.success_url,
 			
 			"channelKey": options.channel_key || "web",
 			"frequency": "ONEOFF",
 			"disableMyDetails": "TRUE",
-			"channelTitle": options.title,
 			"nonce": options.nonce || ("bolt_" + new Date().getTime())
 		}, _.omit(options, "account"));
 	}
