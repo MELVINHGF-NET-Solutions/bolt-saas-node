@@ -204,6 +204,19 @@ Where `options`:
 | `source` | can be any of "moto", "ecommerce" - default "ecommerce" |
 | `account` | can be an `id` referencing an existing account or a fully formed account object which will be created or amended |
 | `success_url` | an optional URL to send the browser upon successful payment, if you do not pass this be sure to catch the Javascript message |
+| `cancel_url` | an optional URL to send the browser upon failed payment, if you do not pass this be sure to catch the Javascript message |
+| `action` | PAYMENT (default) or AUTHORISE |
+| `frequency` | ONEOFF (default), WEEKLY, FORTNIGHTLY, BIMONTHLY, MONTHLY, QUARTERLY, BIANNUALLY or ANNUALLY |
+| `default_frequency` | ONEOFF (default), WEEKLY, FORTNIGHTLY, BIMONTHLY, MONTHLY, QUARTERLY, BIANNUALLY or ANNUALLY |
+| `occurrences` | Number of payments |
+| `default_occurrences` | Default number of payments |
+| `start_date` | Date of the first payment |
+| `default_start_date` | Default date of the first payment |
+| `start_days` | When the first payment will be processed |
+| `default_start_days` | When the first payment will be processed |
+| `save_card` | To hard code a save_card use boolean true or false, or undefined for user selectable |
+| `default_save_card` | To set the default value of save_card |
+| `checkout_text` | Text dispalyed in the payment form |
 
 Where `account`:
 
