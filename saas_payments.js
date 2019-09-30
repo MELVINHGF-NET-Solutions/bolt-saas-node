@@ -148,6 +148,7 @@ class SaaSPayments {
 	        "saveCard": options.save_card,
 	        "defaultSaveCard": options.default_save_card,
 	        "checkoutText": options.checkout_text,
+	        "skipReceipt": options.skip_receipt,
 	        
 			"disableMyDetails": "TRUE",
 			"nonce": options.nonce || ("bolt_" + new Date().getTime())
