@@ -1,4 +1,4 @@
-# SaaS Payments node.js SDK
+# SaaS Payments Node.js SDK
 
 SaaSPayments is the easiest way to integrate payment processing into your software. Bolt NOT a payment processor but rather connects to  major processors in each territory. 
 
@@ -10,7 +10,7 @@ This library is designed to simplify your integration with Bolt for platforms wr
 
 * Popovers: We provide a hosted popover setup and payment process, designed to appear "integrated" with your platform. The use of a hosted payment process can shield you from PCI DSS requirements of handling card details. Note for popovers to work, you will need to include a reference to the following file to your webpage:
 	
-`<script src="https://payments.withbolt.com/b/web/s/payments-1.0.6.min.js">`
+`<script src="https://payments.withbolt.com/b/web/s/payments-1.0.9.min.js">`
 
 * Redirect URLs: If you wish to use a hosted setup & payment process but prefer not to popover your existing platform, you can redirect instead, these pages will be hosted from Bolt's domain.
 * Serverside: These are performed entirely by serverside API and do not have a user interface component. Note: The use of APIs which handle card details require your platform to be PCI DSS compiant, are only available in our white-labelled product. You can still however use the popover and redirect techniques. 
@@ -30,7 +30,7 @@ npm install @paywithbolt/bolt-saas-node
 Adding a payments setup button to your software that launches a popup or redirect is easy, you simply need to include our JS library, and then add a "Setup Payments" link or button to your page. The button requires two HTML attributes `data-bolt-setup` and `data-bolt-signature` as such:
 
 ```
-<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string>">Setup Payments</button>
+<button data-bolt-setup="setup_encoded_string" data-bolt-signature="signature_encoded_string">Setup Payments</button>
 ```   
 
 Where the encoded strings are generated server side via our library;
@@ -55,7 +55,7 @@ var options = {
 var setup_encoded_string = payments.setupButton(options);
 var signature_encoded_string = payments.setupSignature(options);
 
-var html_button = '<button data-bolt-setup="' + setup_encoded_string + '" data-bolt-signature="' + signature_encoded_string + '>">Setup Payments</button>'
+var html_button = '<button data-bolt-setup="' + setup_encoded_string + '" data-bolt-signature="' + signature_encoded_string + '">Setup Payments</button>'
 
 // OR you can create a setup URL to redirect the user to
 
@@ -140,7 +140,7 @@ Result:
 Adding a payments popup is also easy, you simply need to include our JS library, and then add a "Payment" link or button to your page. The button requires two attributes `data-bolt-payment` and `data-bolt-signature` as such
 
 ```
-<button data-bolt-payment="payment_encoded_string" data-bolt-signature="signature_encoded_string>">Pay</button>
+<button data-bolt-payment="payment_encoded_string" data-bolt-signature="signature_encoded_string">Pay</button>
 ```   
 
 Where the encoded strings are generated serverside via our library, for example:
@@ -199,10 +199,25 @@ Where `options`:
 | `default_amount` | The default amount of the payment as a string eg "10", the amount should not have commas and use a `.` as a decimal seperator. A default amount is be editable by the user. |
 | `alt_key` | Your unique reference for the payment (eg order id) |
 | `description` | Your descriptive text for the payment |
+| `title` | Text shown at the top of the payment popup |
 | `nonce` | A unique string that will be used by Bolt to ensure the same transactions is not submitted twice. A nonce can only be used once in a 24 hours period.  |
 | `source` | can be any of "moto", "ecommerce" - default "ecommerce" |
 | `account` | can be an `id` referencing an existing account or a fully formed account object which will be created or amended |
 | `success_url` | an optional URL to send the browser upon successful payment, if you do not pass this be sure to catch the Javascript message |
+| `cancel_url` | an optional URL to send the browser upon failed payment, if you do not pass this be sure to catch the Javascript message |
+| `action` | PAYMENT (default) or AUTHORISE |
+| `frequency` | ONEOFF (default), WEEKLY, FORTNIGHTLY, BIMONTHLY, MONTHLY, QUARTERLY, BIANNUALLY or ANNUALLY |
+| `default_frequency` | ONEOFF (default), WEEKLY, FORTNIGHTLY, BIMONTHLY, MONTHLY, QUARTERLY, BIANNUALLY or ANNUALLY |
+| `occurrences` | Number of payments |
+| `default_occurrences` | Default number of payments |
+| `start_date` | Date of the first payment |
+| `default_start_date` | Default date of the first payment |
+| `start_days` | When the first payment will be processed |
+| `default_start_days` | When the first payment will be processed |
+| `save_card` | To hard code a save_card use boolean true or false, or undefined for user selectable |
+| `default_save_card` | To set the default value of save_card |
+| `checkout_text` | Text dispalyed in the payment form |
+| `skip_receipt` | Set to true to auto close the popup and skip the receipt page after a payment |
 
 Where `account`:
 
@@ -249,9 +264,9 @@ var options = {
 	"currency": "GBP",
 	"amount": 100,
 
-	"alt_key": "1234",
-	"description": "About the payment",
-	"source": "moto",
+    "alt_key": "1234",
+    "description": "About the payment",
+    "source": "moto",
 
 	account: {
         alt_key: "yourCustomerId",
@@ -320,6 +335,7 @@ Where `options`:
 | `amount` | The amount of the payment as a string eg "10", the amount should not have commas and use a `.` as a decimal seperator |
 | `alt_key` | Your unique reference for the payment (eg order id) |
 | `description` | Your descriptive text for the payment |
+| `title` | Text shown at the top of the payment popup |
 | `nonce` | A unique string that will be used by Bolt to ensure the same transactions is not submitted twice. A nonce can only be used once in a 24 hours period.  |
 | `source` | can be any of "moto", "pos", "ecommerce" - default "ecommerce" |
 | `payment_method` | can be an `id` referencing an existing payment_method or a fully formed payment_method object which will be created or amended. If an existing payment_method is to be used with a cvc, pass an object containing an `id` and `card_cvc` |
@@ -480,7 +496,3 @@ Where:
 * Action `PAYMENT.*`, the `payment` node will be expanded into a object
 * Action `REFUND.*`, the `refund` node will be expanded into a object
 
-## Coming soon
-
-* Auth / Capture
-* Recurring payments

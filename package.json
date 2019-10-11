@@ -1,6 +1,6 @@
 {
   "name": "@paywithbolt/bolt-saas-node",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "scripts": {
     "start": "node ./saas_payments.js",
     "test": "qunit -c saas_payments.js -t test/saas_payments.js"

@@ -106,6 +106,7 @@ class SaaSPayments {
 			"defaultAmount": options.default_amount,
 			"altKey": options.alt_key,
 			"orderDesc": options.description,
+			"channelTitle": options.title,
 			
 			"accountKey": accountKey,
 			"crm": account ? {
@@ -126,10 +127,29 @@ class SaaSPayments {
 				"phone": account.phone
 			} : undefined,
 
-			"onSuccessEmail": options.success_url,
+			"successUrl": options.success_url,
+			"cancelUrl": options.cancel_url,
 			
 			"channelKey": options.channel_key || "web",
-			"frequency": "ONEOFF",
+
+			"authOrCapture": options.action,
+	        "frequency": options.frequency,
+	        "defaultFrequency": options.default_frequency,
+	        "isFiniteOccurrences": options.occurrences ? "TRUE" : undefined,
+	        "defaultIsFiniteOccurrences": options.default_occurrences ? "TRUE" : undefined,
+	        "occurrences": options.occurrences,
+	        "defaultOccurrences": options.default_occurrences,
+	        "delayedStart": options.start_date || options.start_days ? "TRUE" : undefined,
+	        "defaultDelayedStart": options.default_start_date || options.default_start_days ? "TRUE" : undefined,
+	        "startDate": options.start_date,
+	        "defaultStartDate": options.default_start_date,
+	        "startDays": options.start_days,
+	        "defaultStartDays": options.default_start_days,
+	        "saveCard": options.save_card,
+	        "defaultSaveCard": options.default_save_card,
+	        "checkoutText": options.checkout_text,
+	        "skipReceipt": options.skip_receipt,
+	        
 			"disableMyDetails": "TRUE",
 			"nonce": options.nonce || ("bolt_" + new Date().getTime())
 		}, _.omit(options, "account"));
